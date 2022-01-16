@@ -41,7 +41,7 @@ userSchema
   .virtual("password")
   .set(function (this: UserDoc, password: string) {
     this._password = password;
-    this.salt = this.makeSalt(); // i dont want to save salt in DB.
+    this.salt = this.makeSalt(); 
     this.hashed_password = this.encryptPassword(password);
   })
   .get(function (this: UserDoc) {

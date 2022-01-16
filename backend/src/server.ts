@@ -1,5 +1,7 @@
-import bodyParser from "body-parser";
 import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import morgan from "morgan";
 import connectDB from "./db/conection";
 import dotenv from "dotenv";
 dotenv.config({ path: `${__dirname}/../.env` });
@@ -9,9 +11,10 @@ const app = express();
 connectDB();
 
 //middlewares
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(morgan("dev"));
 
 //routes
 initializeRoutes(app);

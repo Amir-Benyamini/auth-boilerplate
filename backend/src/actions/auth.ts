@@ -7,7 +7,6 @@ import { CallbackError } from "mongoose";
 import { sendEmailWithNodemailer } from "../services/email";
 import _ from "lodash";
 import { OAuth2Client, TokenPayload } from "google-auth-library";
-// import fetch from 'node-fetch'
 import axios from "axios";
 axios.defaults;
 
@@ -15,6 +14,39 @@ interface SignupInput {
   name: string;
   email: string;
   password: string;
+}
+
+interface Token {
+  token: string;
+}
+
+interface LoginInput {
+  email: string;
+  password: string;
+}
+
+interface forgotPasswordInput {
+  email: string;
+}
+
+interface ResetPasswordInputs {
+  newPassword: string;
+  resetPasswordLink: string;
+}
+
+interface GoogleTokenId {
+  idToken: string;
+}
+
+interface FacebookTokenId {
+  userID: string;
+  accessToken: string;
+}
+
+interface FacebookUserData {
+  id: string;
+  name: string;
+  email: string;
 }
 
 export const signup = (req: Request, res: Response) => {
@@ -46,9 +78,7 @@ export const signup = (req: Request, res: Response) => {
     }
   });
 };
-interface Token {
-  token: string;
-}
+
 export const accountActivation = (req: Request, res: Response) => {
   const { token }: Token = req.body;
 
@@ -63,8 +93,8 @@ export const accountActivation = (req: Request, res: Response) => {
             error: "Expierd link. Please signup again.",
           });
         }
-        // @ts-ignore
-        const { name, email, password } = jwt.decode(token);
+        //@ts-ignore
+        const { name, email, password }: SignupInput = jwt.decode(token);
 
         const user = new User({ name, email, password });
 
@@ -87,10 +117,7 @@ export const accountActivation = (req: Request, res: Response) => {
     });
   }
 };
-interface LoginInput {
-  email: string;
-  password: string;
-}
+
 export const login = (req: Request, res: Response) => {
   const { email, password }: LoginInput = req.body;
 
@@ -122,9 +149,6 @@ export const requireLogin = expressJwt({
   algorithms: ["HS256"],
 });
 
-interface forgotPasswordInput {
-  email: string;
-}
 export const forgotPassword = (req: Request, res: Response) => {
   const { email }: forgotPasswordInput = req.body;
   User.findOne({ email }, (err: CallbackError, user: UserDoc) => {
@@ -165,11 +189,6 @@ export const forgotPassword = (req: Request, res: Response) => {
     }
   });
 };
-
-interface ResetPasswordInputs {
-  newPassword: string;
-  resetPasswordLink: string;
-}
 
 export const resetPassword = (req: Request, res: Response) => {
   const { resetPasswordLink, newPassword }: ResetPasswordInputs = req.body;
@@ -213,9 +232,6 @@ export const resetPassword = (req: Request, res: Response) => {
   }
 };
 
-interface GoogleTokenId {
-  idToken: string;
-}
 export const googleLogin = async (req: Request, res: Response) => {
   const client = new OAuth2Client(process.env.GOOGLE_CLIENT);
   const { idToken }: GoogleTokenId = req.body;
@@ -273,16 +289,7 @@ export const googleLogin = async (req: Request, res: Response) => {
     });
   }
 };
-interface FacebookTokenId {
-  userID: string;
-  accessToken: string;
-}
 
-interface FacebookUserData {
-  id: string;
-  name: string;
-  email: string;
-}
 export const facebookLogin = async (req: Request, res: Response) => {
   console.log("FACEBOOK LOGIN REQ BODY", req.body);
   const { userID, accessToken }: FacebookTokenId = req.body;
