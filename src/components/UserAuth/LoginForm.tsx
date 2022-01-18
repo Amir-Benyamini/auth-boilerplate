@@ -4,18 +4,16 @@ import { useNavigate } from "react-router-dom";
 
 export const LoginForm: React.FC = () => {
   interface loginForm {
-    name: string;
     email: string;
     password: string;
     passwordVisablity: boolean;
   }
   const [values, setValues] = useState<loginForm>({
-    name: "",
     email: "",
     password: "",
     passwordVisablity: false,
   });
-  const { name, email, password, passwordVisablity } = values;
+  const { email, password, passwordVisablity } = values;
   let navigate = useNavigate();
   const updateLoginInput = (value: string, name: string) => {
     const updatedValues: loginForm = { ...values };
@@ -41,17 +39,6 @@ export const LoginForm: React.FC = () => {
 
   const loginForm = () => (
     <form className="login-btn">
-      <div className="form-group">
-        <label className="label text-muted">Full name</label>
-        <input
-          required
-          onChange={(e) => updateLoginInput(e.target.value, e.target.name)}
-          className="form-control"
-          type="text"
-          value={name}
-          name="name"
-        />
-      </div>
       <div className="form-group"></div>
       <div className="form-group">
         <label className="label text-muted">Email address</label>

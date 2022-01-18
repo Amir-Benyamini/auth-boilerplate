@@ -10,7 +10,6 @@ const express_jwt_1 = __importDefault(require("express-jwt"));
 const email_1 = require("../services/email");
 const lodash_1 = __importDefault(require("lodash"));
 const google_auth_library_1 = require("google-auth-library");
-// import fetch from 'node-fetch'
 const axios_1 = __importDefault(require("axios"));
 axios_1.default.defaults;
 const signup = (req, res) => {
@@ -48,7 +47,7 @@ const accountActivation = (req, res) => {
                     error: "Expierd link. Please signup again.",
                 });
             }
-            // @ts-ignore
+            //@ts-ignore
             const { name, email, password } = jsonwebtoken_1.default.decode(token);
             const user = new userSchema_1.default({ name, email, password });
             user.save((err, user) => {
@@ -59,7 +58,7 @@ const accountActivation = (req, res) => {
                     });
                 }
                 return res.json({
-                    messaga: "Signup success! Please login.",
+                    message: "Signup success! Please login.",
                 });
             });
         });

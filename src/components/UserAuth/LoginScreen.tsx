@@ -10,8 +10,8 @@ export const LoginScreen: React.FC = () => {
       <div className="main center-col">
         <div className="form-frame">
           <h1 className="align-text">App Login</h1>
-          {/* <GoogleLoginComp />
-          <FacebookLoginComp /> */}
+          <GoogleLoginComp />
+          <FacebookLoginComp />
           <h5 className="or">
             <span>Or</span>
           </h5>

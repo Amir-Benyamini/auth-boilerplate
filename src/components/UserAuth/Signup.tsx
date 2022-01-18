@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { signup } from "../../actions/Auth";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-
 export const Signup: React.FC = () => {
   interface loginForm {
     name: string;
@@ -27,13 +26,17 @@ export const Signup: React.FC = () => {
   };
 
   const onFormSubmit = async () => {
-    //  const response = await signup(email, password);
-    //  if (response === "Created") {
-    //    navigate(`/`);
-    //  } else {
-    //    console.log(response);
-    //    alert(`Error: "${response.message}", please try again.`);
-    //  }
+    const response = await signup(name, email, password);
+    if (response) {
+      if (response.ok) {
+        toast.success(`${JSON.parse(response.data).message}`);
+        setTimeout(() => {
+          navigate(`/`);
+        }, 10000);
+      } else {
+        toast.error(`${JSON.parse(response.data).error}`);
+      }
+    }
   };
 
   const togglePasswordVisablity = () => {
@@ -105,6 +108,7 @@ export const Signup: React.FC = () => {
   );
   return (
     <div id="grid-container">
+      <ToastContainer />
       <div className="head"></div>
       <div className="main center-col">
         <div className="form-frame">{signupForm()}</div>

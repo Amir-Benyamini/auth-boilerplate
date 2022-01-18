@@ -9,19 +9,33 @@ export const login = async (email: string, password: string) => {
 };
 
 export const signup = async (name: string, email: string, password: string) => {
-  //   const response = await authAPI.emailSignupCall(name, email, password);
-  //   if (response.ok) {
-  //     console.log("SIGNUP SUCCESS!", response);
-  //   }
-  //   return response;
+  const response = await authAPI.emailSignupCall(name, email, password);
+  if (response) {
+    const data = await response.text();
+    if (response.ok) {
+      return { ok: true, data };
+    } else {
+      return { ok: false, data };
+    }
+  } else {
+    return response;
+  }
 };
 
 export const activateAccount = async (token: string) => {
-  //   const response = await authAPI.accountActivationCall(token);
-  //   if (response.ok) {
-  //     console.log("lOGIN SUCCESS!", response);
-  //   }
-  //   return response;
+  const response = await authAPI.accountActivationCall(token);
+  if (response) {
+    const data = await response.text();
+    if (response.ok) {
+      console.log("Account activation success!", response);
+      return { ok: true, data };
+    } else {
+      console.log("Account activation error!", response);
+      return { ok: false, data };
+    }
+  } else {
+    return response;
+  }
 };
 
 // export const updateProfile = async (

@@ -106,7 +106,7 @@ export const accountActivation = (req: Request, res: Response) => {
             });
           }
           return res.json({
-            messaga: "Signup success! Please login.",
+            message: "Signup success! Please login.",
           });
         });
       }

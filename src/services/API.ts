@@ -1,5 +1,5 @@
 class authAPI {
-  baseUrl = "http://localhost:3000/";
+  baseUrl = "http://localhost:4001/";
   async googleLoginCall(tokenId: string) {
     const response = await fetch("https://assetpulse.app/api/login/google", {
       method: "POST",
@@ -64,7 +64,7 @@ class authAPI {
     }
   }
 
-  async emailSignupCall(email: string, password: string) {
+  async emailSignupCall(name: string, email: string, password: string) {
     try {
       const headers = {
         "Content-Type": "application/json",
@@ -75,14 +75,14 @@ class authAPI {
       const options: RequestInit = {
         method: "POST",
         body: JSON.stringify({
+          name,
           email,
           password,
         }),
         headers: headers,
-        credentials: "include",
       };
 
-      const response = await fetch(`${this.baseUrl}register`, options);
+      const response = await fetch(`${this.baseUrl}auth/signup`, options);
 
       return response;
     } catch (error) {
@@ -104,10 +104,12 @@ class authAPI {
           token,
         }),
         headers: headers,
-        credentials: "include",
       };
 
-      const response = await fetch(`${this.baseUrl}register`, options);
+      const response = await fetch(
+        `${this.baseUrl}auth/account-activation`,
+        options
+      );
 
       return response;
     } catch (error) {

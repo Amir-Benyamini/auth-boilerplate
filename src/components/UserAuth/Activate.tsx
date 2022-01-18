@@ -1,50 +1,56 @@
 import React, { useState, useEffect } from "react";
-// import { activateAccount } from "../../actions/Auth";
+import { activateAccount } from "../../actions/Auth";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate, useParams } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import jwt from "jsonwebtoken";
-//@ts-ignorets-ignore
-export function Acivate({ match }) {
+
+export function Acivate() {
   const [values, setValues] = useState({
-    name: "",
     token: "",
-    show: true,
   });
 
-  const { name, token, show } = values;
-
+  const { token } = values;
+  const navigate = useNavigate();
+  const params = useParams();
   useEffect(() => {
-    let token = match.params.token;
+    let token = params.token;
     console.log(token);
-    //@ts-ignorets-ignore
-    let { name } = jwt.decode(token);
+
     if (token) {
-      setValues({ ...values, name, token });
+      setValues({ ...values, token });
     }
   }, []);
 
   const onAccountActivation = async () => {
-    //  let res = await activateAccount(token);
-    //  if (res.ok) {
-    //    let data = await res.text();
-    //    setValues({ ...values, show: !show });
-    //    toast.success(JSON.parse(data).messaga);
-    //  }
-    //  if (!res.ok) {
-    //    let data = await res.text();
-    //    toast.error(JSON.parse(data).error);
-    //  }
+    let res = await activateAccount(token);
+    if (res) {
+      if (res.ok) {
+        toast.success(`${JSON.parse(res.data).message}`);
+        setTimeout(() => {
+          navigate(`/`);
+        }, 10000);
+      } else {
+        toast.error(JSON.parse(res.data).error);
+      }
+    }
   };
 
   const activationLink = () => (
     <div>
-      <h1>
-        Hey {name}, please click the "activate account" button to activate your
-        account!
-      </h1>
-      <button onClick={onAccountActivation} color="primary">
-        acivate account
-      </button>
+      <div>
+        <h1 className="align-text">
+          Please click the "activate account" button to activate your account!
+        </h1>
+      </div>
+      <div className="center-row">
+        <button
+          className="btn btn-primary login-btn"
+          onClick={onAccountActivation}
+          color="primary"
+        >
+          <span className="h5">acivate account</span>
+        </button>
+      </div>
     </div>
   );
 

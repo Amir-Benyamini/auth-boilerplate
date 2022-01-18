@@ -115,40 +115,6 @@ code {
   }
 }
 
-#plus-btn {
-  position: fixed;
-  right: 4%;
-  bottom: 6%;
-  z-index: 1;
-}
-.button {
-  display: inline-flex;
-  height: 40px;
-  padding: 0px;
-  background: #0d6efd;
-  border: none;
-  outline: none;
-  border-radius: 5px;
-  overflow: hidden;
-  cursor: pointer;
-  color: #fff;
-}
-.button:hover {
-  background: #0c56c5;
-}
-.button:active {
-  background: #09449c;
-}
-.button-text,
-.button-icon {
-  display: inline-flex;
-  align-items: center;
-  padding: 0 10px;
-  height: 100%;
-}
-.button-icon {
-  background: rgba(0, 0, 0, 0.08);
-}
 #nav {
   position: fixed;
   display: flex;
@@ -185,6 +151,7 @@ code {
   margin-top: 50px;
 }
 
-.card-image {
-  height: 200px;
+.activate-btn {
+  margin: 0.5vw;
+  width: 33vw !important;
 }
