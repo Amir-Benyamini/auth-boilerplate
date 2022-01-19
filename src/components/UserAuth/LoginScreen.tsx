@@ -3,8 +3,11 @@ import GoogleLoginComp from "./GoogleLoginButton";
 import FacebookLoginComp from "./FacebookLoginButton";
 import { LoginForm } from "./LoginForm";
 import { Link } from "react-router-dom";
+import { isAuth } from "../../services/authHelpers";
+import { Navigate } from "react-router-dom";
+//@ts-ignore
 export const LoginScreen: React.FC = () => {
-  return (
+  const screen = () => (
     <div id="grid-container">
       <div className="head"></div>
       <div className="main center-col">
@@ -17,16 +20,21 @@ export const LoginScreen: React.FC = () => {
           </h5>
           <LoginForm />
           <div className="center-row">
-            Dont have an account?<Link to="/signup">signup here!</Link>
+            Dont have an account? <Link to="/signup">signup here!</Link>
+          </div>
+          <div className="center-row">
+            Forgot password?<Link to="/signup">reset password!</Link>
           </div>
         </div>
       </div>
 
       {/* <div className="center-row main">
-        
-      </div> */}
+	 
+  </div> */}
 
       <div className="foot"></div>
     </div>
   );
+
+  return isAuth() ? <Navigate to="/" /> : screen();
 };

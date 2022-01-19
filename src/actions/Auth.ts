@@ -48,26 +48,21 @@ export const activateAccount = async (token: string) => {
   }
 };
 
-// export const updateProfile = async (
-//   name: string,
-//   password: string,
-//   token: string
-// ) => {
-//   const response = await authAPI.updateProfileCall(name, password, token);
-
-//   if (response.ok) {
-//     console.log("PROFILE UPDATE SUCCESS!", response);
-//   }
-
-//   return response;
-// };
-
-// export const forgotPassword = async (email: string) => {
-//   const response = await authAPI.forgotPassword(email);
-
-//   if (response.ok) {
-//     console.log("FORGOT PASSWORD SUCCESS!", response);
-//   }
+export const forgotPassword = async (email: string) => {
+  const response = await authAPI.forgotPasswordCall(email);
+  if (response) {
+    const data = await response.text();
+    if (response.ok) {
+      console.log("Account activation success!", response);
+      return { ok: true, data };
+    } else {
+      console.log("Account activation error!", response);
+      return { ok: false, data };
+    }
+  } else {
+    return response;
+  }
+};
 
 //   return response;
 // };
@@ -77,6 +72,20 @@ export const activateAccount = async (token: string) => {
 
 //   if (response.ok) {
 //     console.log("FORGOT PASSWORD SUCCESS!", response);
+//   }
+
+//   return response;
+// };
+
+// export const updateProfile = async (
+//   name: string,
+//   password: string,
+//   token: string
+// ) => {
+//   const response = await authAPI.updateProfileCall(name, password, token);
+
+//   if (response.ok) {
+//     console.log("PROFILE UPDATE SUCCESS!", response);
 //   }
 
 //   return response;

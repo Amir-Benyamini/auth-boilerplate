@@ -27,7 +27,7 @@ export const LoginForm: React.FC = () => {
     if (response) {
       if (response.ok) {
         toast.success(
-          `Login success! Welcome ${JSON.parse(response.data).user.name}.`
+          `Login success! Welcome back ${JSON.parse(response.data).user.name}.`
         );
         setTimeout(() => {
           navigate(`/`);

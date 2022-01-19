@@ -6,8 +6,9 @@ import { Routes, Route } from "react-router-dom";
 import { PageNotFound } from "./components/PageNotFound";
 import ProtectedRoutes from "./components/UserAuth/ProtectedRoutes";
 import { Profile } from "./components/UserAuth/Profile";
-import { NavComp } from "./components/NavBar";
 import { Signup } from "./components/UserAuth/Signup";
+import { ForgotPassword } from "./components/UserAuth/ForgotPassword";
+import { NavComp } from "./components/NavBar";
 import { Home } from "./components/Home";
 import { Acivate } from "./components/UserAuth/Activate";
 const App: React.FC = () => {
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/auth/activate/:token" element={<Acivate />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
         <Route element={<ProtectedRoutes />}>
           <Route path="/" element={<Home />} />

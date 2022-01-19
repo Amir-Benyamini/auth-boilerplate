@@ -43,13 +43,21 @@ export const authenticate = (data: any, next: any) => {
 //access user info from localstorage
 export const isAuth = () => {
   if (window !== undefined) {
-    return !!getCoockie("token");
-    //  if (coockieChecked) {
-    //    if (localStorage.getItem("user")) {
-    //      return JSON.parse(localStorage.getItem("user")!);
-    //    } else {
-    //      return false;
-    //    }
-    //  }
+    //  return !!getCoockie("token");
+    const coockieChecked = getCoockie("token");
+    if (coockieChecked) {
+      if (localStorage.getItem("user")) {
+        return JSON.parse(localStorage.getItem("user")!);
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
+};
+
+export const signOut = () => {
+  removeCoockie("token");
+  removeLocalStorage("user");
 };

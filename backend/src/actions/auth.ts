@@ -113,7 +113,7 @@ export const accountActivation = (req: Request, res: Response) => {
     );
   } else {
     return res.json({
-      messaga: "Something went wrong. Please try again.",
+      message: "Something went wrong. Please try again.",
     });
   }
 };
@@ -173,6 +173,7 @@ export const forgotPassword = (req: Request, res: Response) => {
 					 <p>This email may contain sensetive information.</p>
 					 <p>${process.env.CLIENT_URL}</p>`,
       };
+
       return User.updateOne(
         { resetPasswordLink: token },
         (err: CallbackError, success: UserDoc) => {

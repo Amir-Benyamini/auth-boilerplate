@@ -65,7 +65,7 @@ const accountActivation = (req, res) => {
     }
     else {
         return res.json({
-            messaga: "Something went wrong. Please try again.",
+            message: "Something went wrong. Please try again.",
         });
     }
 };

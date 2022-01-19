@@ -112,6 +112,61 @@ class authAPI {
       console.log(error);
     }
   }
+
+  async forgotPasswordCall(email: string) {
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        "Content-Length": "calculated when request is sent",
+        Host: "calculated when request is sent",
+      };
+      const options: RequestInit = {
+        method: "PUT",
+        body: JSON.stringify({
+          email,
+        }),
+        headers: headers,
+      };
+
+      const response = await fetch(
+        `${this.baseUrl}auth/forgot-password`,
+        options
+      );
+
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async resetPasswordCall(newPassword: string, resetPasswordLink: string) {
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        "Content-Length": "calculated when request is sent",
+        Host: "calculated when request is sent",
+      };
+      const options: RequestInit = {
+        method: "PUT",
+        body: JSON.stringify({
+          newPassword,
+          resetPasswordLink,
+        }),
+        headers: headers,
+      };
+
+      const response = await fetch(
+        `${this.baseUrl}auth/reset-password`,
+        options
+      );
+
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default new authAPI();
