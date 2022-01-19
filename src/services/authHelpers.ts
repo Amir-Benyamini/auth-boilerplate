@@ -34,9 +34,9 @@ export const removeLocalStorage = (key: string) => {
   }
 };
 //authenticate user (authenticae and redirect user)
-export const authenticate = (response: any, next: any) => {
-  setCoockie("token", response.data.token);
-  setLocalStorage("user", response.data.user);
+export const authenticate = (data: any, next: any) => {
+  setCoockie("token", data.token);
+  setLocalStorage("user", data.user);
   next();
 };
 
@@ -44,12 +44,12 @@ export const authenticate = (response: any, next: any) => {
 export const isAuth = () => {
   if (window !== undefined) {
     return !!getCoockie("token");
-   //  if (coockieChecked) {
-   //    if (localStorage.getItem("user")) {
-   //      return JSON.parse(localStorage.getItem("user")!);
-   //    } else {
-   //      return false;
-   //    }
-   //  }
+    //  if (coockieChecked) {
+    //    if (localStorage.getItem("user")) {
+    //      return JSON.parse(localStorage.getItem("user")!);
+    //    } else {
+    //      return false;
+    //    }
+    //  }
   }
 };

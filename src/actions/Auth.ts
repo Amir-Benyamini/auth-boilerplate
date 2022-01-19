@@ -1,11 +1,21 @@
 import authAPI from "../services/API";
+import { authenticate } from "../services/authHelpers";
 
 export const login = async (email: string, password: string) => {
-  //   const response = await authAPI.emailLoginCall(email, password);
-  //   if (response.ok) {
-  //     console.log("lOGIN SUCCESS!", response);
-  //   }
-  //   return response;
+  const response = await authAPI.emailLoginCall(email, password);
+  if (response) {
+    const data = await response.text();
+    if (response.ok) {
+      authenticate(JSON.parse(data), () => {
+        console.log("Authenticate is done!");
+      });
+      return { ok: true, data };
+    } else {
+      return { ok: false, data };
+    }
+  } else {
+    return response;
+  }
 };
 
 export const signup = async (name: string, email: string, password: string) => {

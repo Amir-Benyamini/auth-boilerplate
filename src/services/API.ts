@@ -50,13 +50,9 @@ class authAPI {
           password,
         }),
         headers: headers,
-        credentials: "include",
       };
 
-      const response = await fetch(`${this.baseUrl}login/email`, options);
-      // const r2 = await fetch(`${this.baseUrl}properties`, options);
-
-      // const token = getCoockie("token");
+      const response = await fetch(`${this.baseUrl}auth/login`, options);
 
       return response;
     } catch (error) {

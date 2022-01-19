@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { login } from "../../actions/Auth";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 export const LoginForm: React.FC = () => {
   interface loginForm {
@@ -22,13 +23,19 @@ export const LoginForm: React.FC = () => {
     setValues(updatedValues);
   };
   const onFormSubmit = async () => {
-    //  const response = await login(email, password);
-    //  if (response === "OK") {
-    //    navigate(`/`);
-    //  } else {
-    //    console.log(response);
-    //    alert(`Error: "${response}", please try again.`);
-    //  }
+    const response = await login(email, password);
+    if (response) {
+      if (response.ok) {
+        toast.success(
+          `Login success! Welcome ${JSON.parse(response.data).user.name}.`
+        );
+        setTimeout(() => {
+          navigate(`/`);
+        }, 10000);
+      } else {
+        toast.error(`Login failed, please try again.`);
+      }
+    }
   };
 
   const togglePasswordVisablity = () => {
@@ -83,5 +90,10 @@ export const LoginForm: React.FC = () => {
       </button>
     </form>
   );
-  return <div>{loginForm()}</div>;
+  return (
+    <div>
+      <ToastContainer />
+      {loginForm()}
+    </div>
+  );
 };
