@@ -15,24 +15,18 @@ class authAPI {
     return response;
   }
 
-  async facebookLoginCall(accessToken: string) {
-    const response = await fetch("https://assetpulse.app/api/login/facebook", {
+  async facebookLoginCall(userID: string, accessToken: string) {
+    const response = await fetch(`${this.baseUrl}auth/facebook-login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        token: accessToken,
-        device: {
-          udid: "",
-          type: "",
-          name: "",
-          version: "",
-          clientVersion: "",
-        },
+        userID,
+        accessToken,
       }),
     });
-    return response.json(); // parses JSON response into native JavaScript objects
+    return response;
   }
 
   async emailLoginCall(email: string, password: string) {

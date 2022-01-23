@@ -42,7 +42,6 @@ const GoogleLoginComp: React.FC = () => {
       <GoogleLogin
         clientId={`${process.env.REACT_APP_GOOGLE_CLIENT!}`}
         render={(renderProps) => (
-          //   <MyGoogleLoginButton />
           <GoogleLoginButton
             className="login-btn"
             align="center"
@@ -50,12 +49,6 @@ const GoogleLoginComp: React.FC = () => {
           >
             <span>Login with Google</span>
           </GoogleLoginButton>
-          //   <GoogleButton
-          //     onClick={renderProps.onClick}
-          //     disabled={renderProps.disabled}
-          //     className="login-btn"
-          //     label="Continue With Google"
-          //   />
         )}
         onSuccess={responseGoogle}
         onFailure={responseGoogle}

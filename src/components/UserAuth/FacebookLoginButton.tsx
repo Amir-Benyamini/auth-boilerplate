@@ -3,20 +3,40 @@ import React from "react";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import { FacebookLoginButton } from "react-social-login-buttons";
 import { facebookLogin } from "../../actions/Auth";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const FacebookLoginComp: React.FC = () => {
-  const responseFacebook = (response: { accessToken: string }) => {
-    //  if (response.accessToken) {
-    //    console.log(response);
-    //    facebookLogin(response.accessToken);
-    //  } else {
-    //    console.log(response);
-    //  }
+  const navigate = useNavigate();
+  const responseFacebook = async (facebookResponse: {
+    accessToken: string;
+    userID: string;
+  }) => {
+    if (facebookResponse.accessToken && facebookResponse.userID) {
+      console.log(facebookResponse);
+      const response = await facebookLogin(
+        facebookResponse.userID,
+        facebookResponse.accessToken
+      );
+      if (response) {
+        if (response.ok) {
+          toast.success(`Facebook login success! you will now enter the app.`);
+          setTimeout(() => {
+            navigate(`/`);
+          }, 8000);
+        } else {
+          toast.error(JSON.parse(response.data).error);
+        }
+      }
+    } else {
+      console.log(facebookResponse);
+    }
   };
   return (
     <div>
+      <ToastContainer />
       <FacebookLogin
-        appId={`${process.env.REACT_APP_FACEBOOK_ID!}`}
+        appId={`${process.env.REACT_APP_FACEBOOK_APP_ID!}`}
         //@ts-ignore
         render={(renderProps) => (
           <FacebookLoginButton
@@ -26,16 +46,6 @@ export const FacebookLoginComp: React.FC = () => {
           >
             <span>Login with Facebook</span>
           </FacebookLoginButton>
-          //  <div
-          //    className="fb-login-button login-btn"
-          //    data-width="250"
-          //    data-size="large"
-          //    data-button-type="continue_with"
-          //    data-layout="default"
-          //    data-auto-logout-link="false"
-          //    data-use-continue-as="true"
-          //    onClick={renderProps.onClick}
-          //  ></div>
         )}
         autoLoad={false}
         callback={responseFacebook}

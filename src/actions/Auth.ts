@@ -117,11 +117,23 @@ export const googleLogin = async (token: string) => {
 };
 
 export const facebookLogin = async (userID: string, accessToken: string) => {
-  //   const response = await authAPI.facebookLogin(userID, accessToken);
-  //   if (response.ok) {
-  //     console.log("FACEBOOK LOGIN SUCCESS!", response);
-  //   }
-  //   return response;
+  const response = await authAPI.facebookLoginCall(userID, accessToken);
+  if (response) {
+    const data = await response.text();
+    console.log(response);
+    if (response.ok) {
+      authenticate(JSON.parse(data), () => {
+        console.log("Authenticate is done!");
+      });
+      console.log("Facebook login success!", response);
+      return { ok: true, data };
+    } else {
+      console.log("Facebook login error!", response);
+      return { ok: false, data };
+    }
+  } else {
+    return response;
+  }
 };
 
 // export const loadProfile = async (userId: string, token: string) => {
