@@ -51,12 +51,13 @@ export const activateAccount = async (token: string) => {
 export const forgotPassword = async (email: string) => {
   const response = await authAPI.forgotPasswordCall(email);
   if (response) {
+    console.log(response);
     const data = await response.text();
     if (response.ok) {
-      console.log("Account activation success!", response);
+      console.log("Forgot password email success!", response);
       return { ok: true, data };
     } else {
-      console.log("Account activation error!", response);
+      console.log("Forgot password email error!", response);
       return { ok: false, data };
     }
   } else {
@@ -64,18 +65,22 @@ export const forgotPassword = async (email: string) => {
   }
 };
 
-//   return response;
-// };
-
-// export const resetPassword = async (newPassword: string, token: string) => {
-//   const response = await authAPI.resetPassword(newPassword, token);
-
-//   if (response.ok) {
-//     console.log("FORGOT PASSWORD SUCCESS!", response);
-//   }
-
-//   return response;
-// };
+export const resetPassword = async (token: string, newPassword: string) => {
+  const response = await authAPI.resetPasswordCall(token, newPassword);
+  if (response) {
+    console.log(response);
+    const data = await response.text();
+    if (response.ok) {
+      console.log("Reset password success!", response);
+      return { ok: true, data };
+    } else {
+      console.log("Reset password error!", response);
+      return { ok: false, data };
+    }
+  } else {
+    return response;
+  }
+};
 
 // export const updateProfile = async (
 //   name: string,
@@ -92,11 +97,23 @@ export const forgotPassword = async (email: string) => {
 // };
 
 export const googleLogin = async (token: string) => {
-  //   const response = await authAPI.googleLogin(token);
-  //   if (response.ok) {
-  //     console.log("GOOGLE LOGIN SUCCESS!", response);
-  //   }
-  //   return response;
+  const response = await authAPI.googleLoginCall(token);
+  if (response) {
+    const data = await response.text();
+    console.log(response);
+    if (response.ok) {
+      authenticate(JSON.parse(data), () => {
+        console.log("Authenticate is done!");
+      });
+      console.log("Google login success!", response);
+      return { ok: true, data };
+    } else {
+      console.log("Google login error!", response);
+      return { ok: false, data };
+    }
+  } else {
+    return response;
+  }
 };
 
 export const facebookLogin = async (userID: string, accessToken: string) => {

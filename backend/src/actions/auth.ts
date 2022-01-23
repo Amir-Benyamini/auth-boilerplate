@@ -168,7 +168,7 @@ export const forgotPassword = (req: Request, res: Response) => {
         to: email,
         subject: "Password reset link",
         html: `<h1>Please use the following link to reset your password</h1> 
-					 <p>${process.env.CLIENT_URL}/auth/password/reset/${token}</p>
+					 <p>${process.env.CLIENT_URL}/auth/reset-password/${token}</p>
 					 <hr />
 					 <p>This email may contain sensetive information.</p>
 					 <p>${process.env.CLIENT_URL}</p>`,
@@ -183,7 +183,8 @@ export const forgotPassword = (req: Request, res: Response) => {
               error: "DB connection error on user forgot password",
             });
           } else {
-            sendEmailWithNodemailer(req, res, emailData);
+            const response = sendEmailWithNodemailer(req, res, emailData);
+            return response;
           }
         }
       );
@@ -240,8 +241,10 @@ export const googleLogin = async (req: Request, res: Response) => {
     idToken,
     audience: process.env.GOOGLE_CLIENT!,
   });
+
   console.log("GOOGLE LOGIN RESPONSE", response);
   let verifiedToken = response.getPayload();
+
   if (verifiedToken) {
     const { email_verified, name, email }: TokenPayload = verifiedToken;
     if (email_verified) {
@@ -256,7 +259,7 @@ export const googleLogin = async (req: Request, res: Response) => {
             user: { _id, name, email, role },
           });
         } else {
-          let password = email + process.env.JWT_SECRET!;
+          let password = email! + name! + process.env.JWT_SECRET!;
           user = new User({ name, email, password });
           user.save((err: CallbackError, data: UserDoc) => {
             if (err) {

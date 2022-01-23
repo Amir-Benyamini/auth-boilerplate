@@ -113,7 +113,7 @@ const forgotPassword = (req, res) => {
                 to: email,
                 subject: "Password reset link",
                 html: `<h1>Please use the following link to reset your password</h1> 
-					 <p>${process.env.CLIENT_URL}/auth/password/reset/${token}</p>
+					 <p>${process.env.CLIENT_URL}/auth/reset-password/${token}</p>
 					 <hr />
 					 <p>This email may contain sensetive information.</p>
 					 <p>${process.env.CLIENT_URL}</p>`,
@@ -126,7 +126,8 @@ const forgotPassword = (req, res) => {
                     });
                 }
                 else {
-                    (0, email_1.sendEmailWithNodemailer)(req, res, emailData);
+                    const response = (0, email_1.sendEmailWithNodemailer)(req, res, emailData);
+                    return response;
                 }
             });
         }
@@ -192,7 +193,7 @@ const googleLogin = async (req, res) => {
                     });
                 }
                 else {
-                    let password = email + process.env.JWT_SECRET;
+                    let password = email + name + process.env.JWT_SECRET;
                     user = new userSchema_1.default({ name, email, password });
                     user.save((err, data) => {
                         if (err) {

@@ -31,7 +31,7 @@ export const LoginForm: React.FC = () => {
         );
         setTimeout(() => {
           navigate(`/`);
-        }, 10000);
+        }, 8000);
       } else {
         toast.error(`Login failed, please try again.`);
       }

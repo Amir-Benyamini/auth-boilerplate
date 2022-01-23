@@ -1,12 +1,26 @@
-import React, { useState } from "react";
-import { forgotPassword } from "../../actions/Auth";
+import React, { useState, useEffect } from "react";
+import { resetPassword } from "../../actions/Auth";
 import { ToastContainer, toast } from "react-toastify";
-import {Link } from "react-router-dom";
-export const ForgotPassword: React.FC = () => {
+import { useNavigate, useParams } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+
+export function ResetPassword() {
   const [values, setValues] = useState({
-    email: "",
+    token: "",
+    newPassword: "",
   });
-  const { email } = values;
+
+  const { token, newPassword } = values;
+  const navigate = useNavigate();
+  const params = useParams();
+  useEffect(() => {
+    let token = params.token;
+    console.log(token);
+
+    if (token) {
+      setValues({ ...values, token });
+    }
+  }, []);
 
   const updateInput = (value: string, name: string) => {
     const updatedValues = { ...values };
@@ -14,42 +28,40 @@ export const ForgotPassword: React.FC = () => {
     updatedValues[name] = value;
     setValues(updatedValues);
   };
-
   const onFormSubmit = async (event: any) => {
     event.preventDefault();
-    let response = await forgotPassword(email);
+    let response = await resetPassword(token, newPassword);
     if (response) {
-      console.log(response);
       if (response.ok) {
         toast.success(`${JSON.parse(response.data).message}`);
+        setTimeout(() => {
+          navigate(`/`);
+        }, 8000);
       } else {
-        toast.error(`${JSON.parse(response.data).error}`);
+        toast.error(JSON.parse(response.data).error);
       }
     }
   };
 
-  const forgotPasswordForm = () => (
+  const resetPasswordForm = () => (
     <form className="login-btn">
-      <h1 className="center-row">Forgot Password</h1>
+      <h1 className="center-row">Reset Password</h1>
       <hr />
       <div className="form-group">
-        <label className="label text-muted">Email address</label>
+        <label className="label text-muted">New Password</label>
         <input
           required
           onChange={(e) => updateInput(e.target.value, e.target.name)}
           className="form-control"
           type="text"
-          value={email}
-          name="email"
+          value={newPassword}
+          name="newPassword"
         />
       </div>
 
       <button className="btn btn-primary btn-block" onClick={onFormSubmit}>
-        Send Reset Password Link
+        Update Password
       </button>
-      <div className="center-row">
-        <Link to="/login">back to login page</Link>
-      </div>
     </form>
   );
 
@@ -58,9 +70,9 @@ export const ForgotPassword: React.FC = () => {
       <ToastContainer />
       <div className="head"></div>
       <div className="main center-col">
-        <div className="form-frame">{forgotPasswordForm()}</div>
+        <div className="form-frame">{resetPasswordForm()}</div>
       </div>
       <div className="foot"></div>
     </div>
   );
-};
+}

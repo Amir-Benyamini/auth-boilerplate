@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { activateAccount } from "../../actions/Auth";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
+
 
 export function Acivate() {
   const [values, setValues] = useState({
@@ -28,7 +28,7 @@ export function Acivate() {
         toast.success(`${JSON.parse(res.data).message}`);
         setTimeout(() => {
           navigate(`/`);
-        }, 10000);
+        }, 8000);
       } else {
         toast.error(JSON.parse(res.data).error);
       }

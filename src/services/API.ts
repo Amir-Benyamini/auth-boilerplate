@@ -1,18 +1,18 @@
 class authAPI {
   baseUrl = "http://localhost:4001/";
+
   async googleLoginCall(tokenId: string) {
-    const response = await fetch("https://assetpulse.app/api/login/google", {
+    const response = await fetch(`${this.baseUrl}auth/google-login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        token: tokenId,
+        idToken: tokenId,
       }),
     });
 
-    let data = await response; // parses JSON response into native JavaScript objects
-    return data;
+    return response;
   }
 
   async facebookLoginCall(accessToken: string) {
@@ -140,7 +140,7 @@ class authAPI {
     }
   }
 
-  async resetPasswordCall(newPassword: string, resetPasswordLink: string) {
+  async resetPasswordCall(resetPasswordLink: string, newPassword: string) {
     try {
       const headers = {
         "Content-Type": "application/json",
@@ -151,8 +151,8 @@ class authAPI {
       const options: RequestInit = {
         method: "PUT",
         body: JSON.stringify({
-          newPassword,
           resetPasswordLink,
+          newPassword,
         }),
         headers: headers,
       };

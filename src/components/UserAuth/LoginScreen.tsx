@@ -23,7 +23,7 @@ export const LoginScreen: React.FC = () => {
             Dont have an account? <Link to="/signup">signup here!</Link>
           </div>
           <div className="center-row">
-            Forgot password?<Link to="/signup">reset password!</Link>
+            Forgot password?<Link to="/forgot-password">Click here!</Link>
           </div>
         </div>
       </div>
