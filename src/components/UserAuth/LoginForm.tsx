@@ -24,6 +24,7 @@ export const LoginForm: React.FC = () => {
   };
   const onFormSubmit = async () => {
     const response = await login(email, password);
+
     if (response) {
       if (response.ok) {
         toast.success(
@@ -33,8 +34,10 @@ export const LoginForm: React.FC = () => {
           navigate(`/`);
         }, 8000);
       } else {
-        toast.error(`Login failed, please try again.`);
+        toast.error(`${JSON.parse(response.data).error}.`);
       }
+    } else {
+      toast.error(`Login failed, please try again later.`);
     }
   };
 

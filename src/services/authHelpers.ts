@@ -15,7 +15,7 @@ export const removeCoockie = (key: string) => {
   }
 };
 //get from coockie
-export const getCoockie = (key: string) => {
+export const getCookie = (key: string) => {
   if (window !== undefined) {
     console.log(coockie.get());
     return coockie.get(key);
@@ -44,7 +44,7 @@ export const authenticate = (data: any, next: any) => {
 export const isAuth = () => {
   if (window !== undefined) {
     //  return !!getCoockie("token");
-    const coockieChecked = getCoockie("token");
+    const coockieChecked = getCookie("token");
     if (coockieChecked) {
       if (localStorage.getItem("user")) {
         return JSON.parse(localStorage.getItem("user")!);

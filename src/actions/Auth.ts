@@ -136,7 +136,34 @@ export const facebookLogin = async (userID: string, accessToken: string) => {
   }
 };
 
-// export const loadProfile = async (userId: string, token: string) => {
-//   let res = await authAPI.loadProfile(userId, token);
-//   return res;
-// };
+export const loadUser = async (userId: string, token: string) => {
+  let response = await authAPI.loadUserCall(userId, token);
+  if (response) {
+    let data = await response.json();
+    if (response.ok) {
+      return { ok: true, data };
+    } else {
+      return { ok: false, data };
+    }
+  } else {
+    return { ok: false, response };
+  }
+};
+
+export const updateUser = async (
+  token: string,
+  name: string,
+  password: string
+) => {
+  let response = await authAPI.updateUserCall(token, name, password);
+  if (response) {
+    let data = await response.json();
+    if (response.ok) {
+      return { ok: true, data };
+    } else {
+      return { ok: false, data };
+    }
+  } else {
+    return { ok: false, response };
+  }
+};

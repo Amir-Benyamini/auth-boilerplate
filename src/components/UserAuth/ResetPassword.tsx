@@ -8,11 +8,14 @@ export function ResetPassword() {
   const [values, setValues] = useState({
     token: "",
     newPassword: "",
+    passwordVisablity: false,
   });
 
-  const { token, newPassword } = values;
+  const { token, newPassword, passwordVisablity } = values;
+
   const navigate = useNavigate();
   const params = useParams();
+
   useEffect(() => {
     let token = params.token;
     console.log(token);
@@ -43,6 +46,12 @@ export function ResetPassword() {
     }
   };
 
+  const togglePasswordVisablity = () => {
+    const updatedValues = { ...values };
+    updatedValues.passwordVisablity = !passwordVisablity;
+    setValues(updatedValues);
+  };
+
   const resetPasswordForm = () => (
     <form className="login-btn">
       <h1 className="center-row">Reset Password</h1>
@@ -53,10 +62,18 @@ export function ResetPassword() {
           required
           onChange={(e) => updateInput(e.target.value, e.target.name)}
           className="form-control"
-          type="text"
+          type={passwordVisablity ? "text" : "password"}
           value={newPassword}
           name="newPassword"
         />
+        <i
+          onClick={togglePasswordVisablity}
+          className={
+            passwordVisablity
+              ? "far fa-eye-slash text-muted eye-icon"
+              : "far fa-eye text-muted eye-icon"
+          }
+        ></i>
       </div>
 
       <button className="btn btn-primary btn-block" onClick={onFormSubmit}>

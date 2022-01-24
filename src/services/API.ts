@@ -161,6 +161,36 @@ class authAPI {
       console.log(error);
     }
   }
+
+  async loadUserCall(id: string, token: string) {
+    const response = await fetch(`${this.baseUrl}user/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response;
+  }
+
+  async updateUserCall(token: string, name: string, password: string) {
+    const response = await fetch(`${this.baseUrl}user/update`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name,
+        password,
+      }),
+    });
+
+    return response;
+  }
 }
 
 export default new authAPI();

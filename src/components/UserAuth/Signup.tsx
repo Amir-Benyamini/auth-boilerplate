@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { signup } from "../../actions/Auth";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+
 export const Signup: React.FC = () => {
   interface loginForm {
     name: string;

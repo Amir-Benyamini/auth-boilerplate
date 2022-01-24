@@ -150,6 +150,9 @@ code {
 .content {
   margin-top: 50px;
 }
+.userDetails {
+  margin-bottom: 100px;
+}
 
 .activate-btn {
   margin: 0.5vw;
