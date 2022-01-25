@@ -17,16 +17,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("../../build"));
-}
 //routes
 initializeRoutes(app);
 
-const publicPath = path.join(__dirname, "..", "..", "build");
-app.use(express.static(path.resolve(__dirname, "..", "..", "build")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(publicPath, "index.html"));
-});
+if (process.env.NODE_ENV === "production") {
+  const publicPath = path.join(__dirname, "..", "..", "build");
+  app.use(express.static(path.resolve(__dirname, "..", "..", "build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(publicPath, "index.html"));
+  });
+}
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`server is up and running at port ${port}`));
