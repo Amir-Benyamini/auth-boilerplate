@@ -44,7 +44,7 @@ const update = (req, res) => {
                 });
             }
             else {
-                user._password = password;
+                user.password = password;
             }
         }
         user.save((err, updatedUser) => {

@@ -4,6 +4,7 @@ interface UserInput {
   name: string;
   email: string;
   _password: string;
+  password: string;
 }
 
 export default interface UserDoc extends Document, UserInput {

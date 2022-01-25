@@ -54,7 +54,7 @@ export const update = (req: Request, res: Response) => {
           error: "Password should be at least 6 characters",
         });
       } else {
-        user._password = password;
+        user.password = password;
       }
     }
     user.save((err: CallbackError, updatedUser: UserDoc) => {
