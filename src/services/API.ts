@@ -1,5 +1,8 @@
 class authAPI {
-  baseUrl = process.env.PORT || "http://localhost:3000/";
+  baseUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://user-auth-boilerplate.herokuapp.com/"
+      : "http://localhost:3000/";
 
   async googleLoginCall(tokenId: string) {
     const response = await fetch(`${this.baseUrl}auth/google-login`, {
