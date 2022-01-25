@@ -1,5 +1,5 @@
 class authAPI {
-  baseUrl = "http://localhost:4001/";
+  baseUrl = "http://localhost:3000/";
 
   async googleLoginCall(tokenId: string) {
     const response = await fetch(`${this.baseUrl}auth/google-login`, {
