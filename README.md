@@ -1,20 +1,22 @@
-![Ultimate_User_Authentication_Boilerplate](/assets/Ultimate_User_Authentication_Boilerplate.jpg "Ultimate User Authentication Boilerplate")
+![Ultimate_User_Authentication_Boilerplate](assets/Ultimate_User_Authentication_Boilerplate.jpg "Ultimate User Authentication Boilerplate")
 
 The ultimate user authentication boilerplate for your to kickstart your next projects.
 
 # Installation & Usage:
 
 # Key features:
+
 1. sign up and log in with an email and password.
 2. sign up and log in with a Google account.
 3. sign up and log in with a Facebook account.
 4. navbar with link to the home component, profile page, and a sign-out button.
 5. email validation.
 6. reset password when user forgot it.
-7.  profile page that displays user data and allows to update name and password.
+7. profile page that displays user data and allows to update name and password.
 8. toast massages that make it users friendly.
 
 # Technologies:
+
 - MongoDB
 - Express
 - React
@@ -25,7 +27,7 @@ The ultimate user authentication boilerplate for your to kickstart your next pro
 - React toastify
 - Axios
 - Json web token
-- JS cookie 
+- JS cookie
 - Mongoose
 - React Facebook login
 - React google login
