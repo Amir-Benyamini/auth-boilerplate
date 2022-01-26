@@ -1,4 +1,4 @@
-![Ultimate_User_Authentication_Boilerplate](assets/Ultimate_User_Authentication_Boilerplate.jpg "Ultimate User Authentication Boilerplate")
+![Ultimate_User_Authentication_Boilerplate](https://github.com/Amir-Benyamini/auth-boilerplate/blob/main/assets/Ultimate_User_Authentication_Boilerplate.png "Ultimate User Authentication Boilerplate")
 
 The ultimate user authentication boilerplate for your to kickstart your next projects.
 
