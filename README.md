@@ -1,8 +1,11 @@
 ![Ultimate_User_Authentication_Boilerplate](https://github.com/Amir-Benyamini/auth-boilerplate/blob/main/assets/Ultimate_User_Authentication_Boilerplate.png "Ultimate User Authentication Boilerplate")
 
-The ultimate user authentication boilerplate for your to kickstart your next projects.
+The ultimate user authentication boilerplate to kickstart your next projects.
 
 # Installation & Usage:
+
+1. npm run build
+2. npm start
 
 # Key features:
 
