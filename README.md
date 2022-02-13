@@ -38,3 +38,6 @@ The ultimate user authentication boilerplate to kickstart your next projects.
 - Google auth library
 - Nodemailer
 - Morgan
+
+# Live Demo:
+https://user-auth-boilerplate.herokuapp.com/
